@@ -1,0 +1,65 @@
+import os
+import tensorflow as tf 
+import random
+import numpy as np
+from tensorflow import keras
+from keras.models import Sequential
+from keras.layers import Dense
+import cv2
+#   importing all the necessary libraries ^
+def breed_img_list(path,dog_list):
+    with os.scandir(path) as entries:
+        for entry in entries:
+            if entry.is_file():
+                np.append(dog_list,entry.path)
+    return(dog_list)
+def identifier(file,labels):
+    for breed in labels:
+        if file in breed:
+            return(breed)
+#   functions ^
+bull_imgs=np.array([])
+bull_path='drive/MyDrive/images/Images/bull_mastiff'
+sheperd_imgs=np.array([])
+sheperd_path='drive/MyDrive/images/Images/german_shepherd'
+retriever_imgs=np.array([])
+retriever_path='drive/MyDrive/images/Images/golden_retriever'
+greyhound_imgs=np.array([])
+greyhound_path='drive/MyDrive/images/Images/greyhound'
+corgi_imgs=np.array([])
+corgi_path='drive/MyDrive/images/Images/pembroke_corgi'
+poodle_imgs=np.array([])
+poodle_path='drive/MyDrive/images/Images/poodle'
+pug_imgs=np.array([])
+pug_path='drive/MyDrive/images/Images/pug'
+husky_imgs=np.array([])
+husky_path='drive/MyDrive/images/Images/siberian_husky'
+terrier_imgs=np.array([])
+terrier_path='drive/MyDrive/images/Images/west_highland_terrier'
+bull_imgs=breed_img_list(bull_path,bull_imgs)
+sheperd_imgs=breed_img_list(sheperd_path,sheperd_imgs)
+retriever_imgs=breed_img_list(retriever_path,retriever_imgs)
+greyhound_imgs=breed_img_list(greyhound_path,greyhound_imgs)
+corgi_imgs=breed_img_list(corgi_path,corgi_imgs)
+poodle_imgs=breed_img_list(poodle_path,poodle_imgs)
+pug_imgs=breed_img_list(pug_path,pug_imgs)
+husky_img=breed_img_list(husky_path,husky_imgs)
+terrier_imgs=breed_img_list(terrier_path,terrier_imgs)
+#   setting up and preparing the data ^
+labels={'bull':bull_imgs,'sheperd':sheperd_imgs,'retriever':retriever_imgs,
+'greyhound':greyhound_imgs,'corgi':corgi_imgs,'poodle':poodle_imgs,
+'pug':pug_imgs,'husky':husky_imgs,'terrier':terrier_imgs}
+all_imgs=np.array([])
+for breed in labels:
+    np.append(all_imgs,labels[breed])
+random.shuffle(all_imgs)
+train_imgs=all_imgs[:int(len(all_imgs)*.8)]
+test_imgs=all_imgs[int(len(all_imgs)*.8):]
+print(all_imgs)
+#   creating the labels and splitting the data ^
+#model=tf.keras.models.Sequential()
+#model.add(tf.keras.layers.Flatten(input_shape=(28,28)))
+#model.add(tf.keras.layers.Dense(units=128,activation=tf.nn.relu))
+#model.add(tf.keras.layers.Dense(units=10,activation=tf.nn.softmax))
+
+#   here's where it gets interesting ^
